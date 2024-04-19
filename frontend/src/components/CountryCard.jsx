@@ -6,7 +6,7 @@ function CountryCard() {
     <div>
     <Card
       title={
-        <div class="flex items-center gap-3 underline"
+        <div>
           <img src="https://flagcdn.com/w320/ru.png"/>
           <span>Russia</span>
         </div>
