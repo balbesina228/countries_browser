@@ -22,16 +22,18 @@ const App = () => {
   };
 
   const fetchCountries = () => {
-    axios.get("http://127.0.0.1:8000/countries").then(r => {
+    axios.get("http://localhost:8000/countries").then(r => {
+      console.log(`r=${r}`)
       const countriesResponse = r.data
       const menuItems = [
         getItem('Countries list', 'g1', null,
           countriesResponse.map(c => {
-            return {label: c.name}
-          })
+            {label: c.name}
+          }),
+          'group'
         )
       ]
-      setCountries(countriesResponse)
+      setCountries(menuItems)
     })
   }
 
@@ -40,6 +42,7 @@ const App = () => {
   }, []);
 
   return (
+  <div className="flex">
     <Menu
       onClick={onClick}
       style={{
@@ -49,7 +52,9 @@ const App = () => {
       defaultOpenKeys={['sub1']}
       mode="inline"
       items={countries}
+      className="h-screen overflow-scroll"
     />
+    </div>
   );
 };
 export default App;
