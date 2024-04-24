@@ -17,18 +17,20 @@ function getItem(label, key, icon, children, type) {
 
 const App = () => {
   const [countries, setCountries] = useState([])
+  const [countryName, setCountryName] = useState('Ukraine')
+  const [countryData, setCountryData] = useState(null)
+
 
   const onClick = (e) => {
     console.log('click ', e);
+    setCountryName(e.key);
   };
   useEffect(() => {
   const fetchCountries = async () => {
     await axios.get("http://127.0.0.1:8000/countries").then(r => {
       const countriesResponse = r.data
-      console.log(`countriesResponse=${countriesResponse}`)
-
       const menuItems = countriesResponse.map(c => {
-        return getItem(c.name.common, c.name.common, null, null);
+        return getItem(c.name.common, c.name.common, null, null, null);
       });
 
       setCountries(menuItems)
@@ -38,8 +40,18 @@ const App = () => {
     fetchCountries()
   }, []);
 
+  const fetchCountry = async () => {
+    await axios.get(`http://127.0.0.1:8000/countries/${countryName}`).then(r => {
+      setCountryData(r.data)
+    })
+  }
+
+  useEffect(() => {
+    setCountryData(null)
+    fetchCountry()
+  }, [countryName]);
+
   return (
-  <>
   <div className="flex">
     <Menu
       onClick={onClick}
@@ -52,9 +64,10 @@ const App = () => {
       items={countries}
       className="h-screen overflow-scroll"
     />
+    <div className="mx-auto my-auto">
+      {countryData ? <CountryCard country={countryData}/> : <Spin size="large"/>}
     </div>
-    <CountryCard/>
-    </>
+  </div>
   );
 };
 export default App;

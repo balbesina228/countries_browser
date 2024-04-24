@@ -1,14 +1,17 @@
-import { Card } from 'antd';
+import {Card} from 'antd';
 
-function CountryCard() {
+function CountryCard(props) {
+  const { country } = props
+  console.log(country)
 
   return (
     <div>
     <Card
       title={
-        <div>
-          <img src="https://flagcdn.com/w320/ru.png"/>
-          <span>Russia</span>
+        <div className="flex items-center gap-3">
+          <img src={country[0].flags.png}
+            width="100" height="70"/>
+          <p>{country[0].name.common}</p>
         </div>
       }
       extra={<a href="#">More</a>}
