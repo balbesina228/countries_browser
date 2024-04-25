@@ -1,8 +1,10 @@
 import {Card} from 'antd';
+import ErrorBoundary from './ErrorBoundary.jsx';
 
 function CountryCard(props) {
   const { country } = props
-  console.log(country)
+  const currency_name = Object.values(country[0].currencies)[0].name
+  const currency_symbol = Object.values(country[0].currencies)[0].symbol
 
   return (
     <div>
@@ -19,9 +21,11 @@ function CountryCard(props) {
         width: 600,
       }}
   >
-      <p>odin</p>
-      <p>dwa</p>
-      <p>three</p>
+    <ErrorBoundary>
+        <p>Official name: {country[0].name.official}</p>
+        <p>Currency: {currency_name}, {currency_symbol}</p>
+        <p>three</p>
+    </ErrorBoundary>
     </Card>
     </div>
   )

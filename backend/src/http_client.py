@@ -15,6 +15,7 @@ class RCHTTPClient(HTTPClient):
     async def get_all_countries(self):
         async with self._session.get("/v3.1/all") as resp:
             result = await resp.json()
+            result = sorted(result, key=lambda x: x['name']['common'])
             return result
 
     @alru_cache
