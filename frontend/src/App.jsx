@@ -17,7 +17,7 @@ function getItem(label, key, icon, children, type) {
 
 const App = () => {
   const [countries, setCountries] = useState([])
-  const [countryName, setCountryName] = useState('Ukraine')
+  const [countryName, setCountryName] = useState('USA')
   const [countryData, setCountryData] = useState(null)
 
 
